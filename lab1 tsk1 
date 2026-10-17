@@ -1,0 +1,59 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNxXTAhEwJzs26tQ/p5cWQE",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/abdullahamjad20/Advance-Database-System-/blob/main/lab1%20tsk1%20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "NR3LaZ5AKWje"
+      },
+      "outputs": [],
+      "source": [
+        "DROP TABLE IF EXISTS course;\n",
+        "\n",
+        "CREATE TABLE course (\n",
+        "    course_id INT PRIMARY KEY,\n",
+        "    title VARCHAR(50),\n",
+        "    topics TEXT[]\n",
+        ");\n",
+        "\n",
+        "INSERT INTO course (course_id, title, topics)\n",
+        "VALUES\n",
+        "(1, 'ADBMS', ARRAY['Joins', 'Triggers', 'Indexing']),\n",
+        "(2, 'Databases', ARRAY['ER Model', 'Normalization']);\n",
+        "\n",
+        "SELECT title, topics[2] AS second_topic\n",
+        "FROM course;\n",
+        "\n",
+        "SELECT title\n",
+        "FROM course\n",
+        "WHERE 'Joins' = ANY(topics);"
+      ]
+    }
+  ]
+}
