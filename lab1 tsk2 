@@ -1,0 +1,59 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPgJo+41FUPXGin6lIkR2Rn",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/abdullahamjad20/Advance-Database-System-/blob/main/lab1%20tsk2%20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "NR3LaZ5AKWje"
+      },
+      "outputs": [],
+      "source": [
+        "CREATE TABLE book_catalog (\n",
+        "    book_id INT PRIMARY KEY,\n",
+        "    title VARCHAR(100),\n",
+        "    authors TEXT[]\n",
+        ");\n",
+        "\n",
+        "INSERT INTO book_catalog (book_id, title, authors)\n",
+        "VALUES\n",
+        "(1, 'Database Systems', ARRAY['Ali Ahmed', 'Usman Khan']),\n",
+        "(2, 'Python Basics', ARRAY['Hamza Malik']),\n",
+        "(3, 'Artificial Intelligence', ARRAY['Abdullah Amjad', 'Muhammad Bilal']),\n",
+        "(4, 'Computer Networks', ARRAY['Ahmed Raza']);\n",
+        "\n",
+        "SELECT title, authors[1] AS first_author\n",
+        "FROM book_catalog;\n",
+        "\n",
+        "SELECT title, authors\n",
+        "FROM book_catalog\n",
+        "WHERE 'Ali Ahmed' = ANY(authors);"
+      ]
+    }
+  ]
+}
