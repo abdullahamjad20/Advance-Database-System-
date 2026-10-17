@@ -1,0 +1,65 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMAT8rFkPSoKyMebQ9A/K2N",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/abdullahamjad20/Advance-Database-System-/blob/main/lab1%20tsk3\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "NR3LaZ5AKWje"
+      },
+      "outputs": [],
+      "source": [
+        "CREATE TYPE contact_t AS (\n",
+        "    email VARCHAR(100),\n",
+        "    mobile VARCHAR(20)\n",
+        ");\n",
+        "\n",
+        "CREATE TABLE customer (\n",
+        "    cust_id INT PRIMARY KEY,\n",
+        "    cust_name VARCHAR(100),\n",
+        "    contact contact_t\n",
+        ");\n",
+        "\n",
+        "INSERT INTO customer VALUES\n",
+        "(1, 'Ali Ahmed', ('ali@gmail.com', '03001234567')),\n",
+        "(2, 'Usman Khan', ('usman@gmail.com', '03111234567')),\n",
+        "(3, 'Abdullah Amjad', ('abdullah@gmail.com', '03211234567'));\n",
+        "\n",
+        "SELECT cust_name, (contact).email AS email\n",
+        "FROM customer;\n",
+        "\n",
+        "UPDATE customer\n",
+        "SET contact = ('ali123@gmail.com', '03001234567')\n",
+        "WHERE cust_id = 1;\n",
+        "\n",
+        "SELECT cust_name, (contact).email AS email\n",
+        "FROM customer;"
+      ]
+    }
+  ]
+}
