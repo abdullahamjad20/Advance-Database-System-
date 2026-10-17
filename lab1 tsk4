@@ -1,0 +1,92 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMMwuLsfaC2nfjPgDKUboTV",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/abdullahamjad20/Advance-Database-System-/blob/main/lab1%20tsk4\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "NR3LaZ5AKWje"
+      },
+      "outputs": [],
+      "source": [
+        "CREATE TABLE vehicle (\n",
+        "    vehicle_id INT PRIMARY KEY,\n",
+        "    brand VARCHAR(50),\n",
+        "    model VARCHAR(50)\n",
+        ");\n",
+        "\n",
+        "CREATE TABLE car (\n",
+        "    doors INT\n",
+        ") INHERITS (vehicle);\n",
+        "\n",
+        "CREATE TABLE bike (\n",
+        "    engine_cc INT\n",
+        ") INHERITS (vehicle);\n",
+        "\n",
+        "INSERT INTO vehicle (vehicle_id, brand, model)\n",
+        "VALUES (1, 'Toyota', 'Corolla');\n",
+        "\n",
+        "INSERT INTO car (vehicle_id, brand, model, doors)\n",
+        "VALUES\n",
+        "(2, 'Honda', 'Civic', 4),\n",
+        "(3, 'Suzuki', 'Alto', 4);\n",
+        "\n",
+        "INSERT INTO bike (vehicle_id, brand, model, engine_cc)\n",
+        "VALUES\n",
+        "(4, 'Honda', 'CD70', 70),\n",
+        "(5, 'Yamaha', 'YBR125', 125);\n",
+        "\n",
+        "SELECT * FROM vehicle;\n",
+        "\n",
+        "SELECT * FROM ONLY vehicle;\n",
+        "\n",
+        "CREATE OR REPLACE FUNCTION describe_vehicle(c car)\n",
+        "RETURNS TEXT\n",
+        "LANGUAGE SQL\n",
+        "AS $$\n",
+        "    SELECT 'This car is ' || c.brand || ' ' || c.model\n",
+        "           || ' with ' || c.doors || ' doors.';\n",
+        "$$;\n",
+        "\n",
+        "CREATE OR REPLACE FUNCTION describe_vehicle(b bike)\n",
+        "RETURNS TEXT\n",
+        "LANGUAGE SQL\n",
+        "AS $$\n",
+        "    SELECT 'This bike is ' || b.brand || ' ' || b.model\n",
+        "           || ' with ' || b.engine_cc || ' CC engine.';\n",
+        "$$;\n",
+        "\n",
+        "SELECT describe_vehicle(c)\n",
+        "FROM car AS c;\n",
+        "\n",
+        "SELECT describe_vehicle(b)\n",
+        "FROM bike AS b;"
+      ]
+    }
+  ]
+}
