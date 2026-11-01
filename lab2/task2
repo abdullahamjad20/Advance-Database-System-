@@ -1,0 +1,34 @@
+DROP TABLE IF EXISTS product_heap;
+
+CREATE TABLE product_heap (
+    product_id INT,
+    product_name VARCHAR(50),
+    price INT,
+    stock INT
+);
+
+INSERT INTO product_heap VALUES
+(1, 'Laptop', 85000, 20),
+(2, 'Mouse', 1200, 150),
+(3, 'Keyboard', 3500, 88),
+(4, 'Monitor', 25000, 35),
+(5, 'USB Cable', 500, 300);
+
+SELECT ctid, * FROM product_heap;
+
+SELECT pg_relation_size('product_heap') AS size_before_bytes;
+
+UPDATE product_heap SET price = 90000 WHERE product_id = 1;
+
+SELECT ctid, * FROM product_heap;
+
+DELETE FROM product_heap WHERE product_id = 3;
+
+SELECT ctid, * FROM product_heap;
+
+VACUUM product_heap;
+
+SELECT ctid, * FROM product_heap;
+
+SELECT pg_relation_size('product_heap') AS size_after_vacuum_bytes,
+       pg_size_pretty(pg_relation_size('product_heap')) AS size_pretty;
