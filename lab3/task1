@@ -1,0 +1,16 @@
+CREATE TABLE stock (
+    item_id INT PRIMARY KEY,
+    item_name VARCHAR(30),
+    qty INT CHECK (qty >= 0)
+);
+
+INSERT INTO stock VALUES (1, 'Pen', 100), (2, 'Notebook', 50);
+
+BEGIN;
+UPDATE stock SET qty = qty - 30 WHERE item_id = 1;
+SELECT * FROM stock ORDER BY item_id;
+ROLLBACK;
+
+SELECT * FROM stock ORDER BY item_id;
+
+DROP TABLE stock;
