@@ -1,0 +1,25 @@
+DROP TABLE IF EXISTS orders;
+
+CREATE TABLE orders (
+    order_id INT,
+    customer_id INT,
+    amount INT
+);
+
+INSERT INTO orders
+SELECT g, g % 1000, g % 5000
+FROM generate_series(1, 100000) AS g;
+
+CREATE INDEX idx_orders_customer_btree ON orders USING btree (customer_id);
+
+CREATE INDEX idx_orders_order_hash ON orders USING hash (order_id);
+
+ANALYZE orders;
+
+SELECT indexname, indexdef
+FROM pg_indexes
+WHERE tablename = 'orders';
+
+EXPLAIN SELECT * FROM orders WHERE customer_id = 500;
+
+EXPLAIN SELECT * FROM orders WHERE order_id = 500;
