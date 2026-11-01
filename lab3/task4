@@ -1,0 +1,31 @@
+DROP TABLE IF EXISTS stock;
+
+CREATE TABLE stock (
+    item_id INT PRIMARY KEY,
+    item_name TEXT,
+    quantity INT
+);
+
+INSERT INTO stock VALUES (1, 'Pen', 100), (2, 'Notebook', 50), (3, 'Marker', 75);
+
+-- REPEATABLE READ Test
+BEGIN ISOLATION LEVEL REPEATABLE READ;
+SELECT item_id, quantity FROM stock WHERE item_id = 2;
+
+UPDATE stock SET quantity = quantity - 10 WHERE item_id = 2;
+
+SELECT item_id, quantity FROM stock WHERE item_id = 2;
+COMMIT;
+
+SELECT item_id, quantity FROM stock WHERE item_id = 2;
+
+-- READ COMMITTED Test
+UPDATE stock SET quantity = 50 WHERE item_id = 2;
+
+BEGIN ISOLATION LEVEL READ COMMITTED;
+SELECT item_id, quantity FROM stock WHERE item_id = 2;
+
+UPDATE stock SET quantity = quantity - 10 WHERE item_id = 2;
+
+SELECT item_id, quantity FROM stock WHERE item_id = 2;
+COMMIT;
