@@ -1,0 +1,20 @@
+CREATE TABLE book_heap (
+    book_id INT,
+    title VARCHAR(50),
+    price INT
+);
+
+INSERT INTO book_heap VALUES
+(1, 'Database Systems', 1200),
+(2, 'Data Mining', 1500),
+(3, 'Operating Systems', 1100);
+
+SELECT ctid, * FROM book_heap;
+
+UPDATE book_heap SET price = 1300 WHERE book_id = 2;
+
+SELECT ctid, * FROM book_heap;
+
+DELETE FROM book_heap WHERE book_id = 3;
+
+SELECT ctid, * FROM book_heap;
