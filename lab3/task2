@@ -1,0 +1,60 @@
+CREATE DATABASE bank_db;
+USE bank_db;
+
+CREATE TABLE accounts (
+    account_id INT PRIMARY KEY,
+    account_name VARCHAR(50),
+    balance DECIMAL(10,2)
+);
+
+INSERT INTO accounts (account_id, account_name, balance)
+VALUES
+(1, 'Ali', 3000.00),
+(2, 'Ahmed', 2000.00),
+(3, 'Sara', 1000.00);
+
+SELECT * FROM accounts;
+
+-- Transaction 1: Transfer 500 from Account 2 to Account 3
+START TRANSACTION;
+
+UPDATE accounts
+SET balance = balance - 500
+WHERE account_id = 2;
+
+UPDATE accounts
+SET balance = balance + 500
+WHERE account_id = 3;
+
+SELECT * FROM accounts
+WHERE account_id IN (2, 3);
+
+-- Transaction 2: Transfer exceeding balance
+START TRANSACTION;
+
+SET @transfer_amount = 999999;
+
+SELECT balance INTO @current_balance
+FROM accounts
+WHERE account_id = 2;
+
+SELECT IF(
+    @transfer_amount > @current_balance,
+    'ERROR: Insufficient balance!',
+    'Sufficient balance'
+) AS transaction_status;
+
+UPDATE accounts
+SET balance = balance - @transfer_amount
+WHERE account_id = 2
+AND balance >= @transfer_amount;
+
+UPDATE accounts
+SET balance = balance + @transfer_amount
+WHERE account_id = 3
+AND @transfer_amount <= @current_balance;
+
+ROLLBACK;
+
+SELECT * FROM accounts
+WHERE account_id IN (2, 3);
