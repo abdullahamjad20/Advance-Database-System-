@@ -1,0 +1,9 @@
+EXPLAIN ANALYZE SELECT * FROM orders WHERE amount = 2500;
+
+CREATE INDEX idx_orders_amount ON orders (amount);
+
+ANALYZE orders;
+
+EXPLAIN ANALYZE SELECT * FROM orders WHERE amount = 2500;
+
+EXPLAIN ANALYZE SELECT * FROM orders WHERE order_id BETWEEN 100 AND 200;
